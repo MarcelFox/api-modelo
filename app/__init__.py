@@ -7,5 +7,5 @@ def create_app():
     app.config.from_object('config')
 
     with app.app_context():
-        from .Router import routes
+        import Router
         return app
