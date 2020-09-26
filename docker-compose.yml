@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  api-modelo:
+    build: ./
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/flask
+    working_dir: /flask
+    env_file:
+      - .env
+    command: flask run
