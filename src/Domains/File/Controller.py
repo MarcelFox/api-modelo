@@ -9,8 +9,7 @@ class FileController:
     def __init__(self):
         self._fileService = FileService()
 
-    @staticmethod
-    def mainPage():
+    def mainPage(self):
         return jsonify({"status": 200, "message": "Main Success"})
 
     def checkNumbers(self, file):
