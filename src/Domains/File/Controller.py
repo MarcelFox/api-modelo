@@ -1,4 +1,5 @@
 import json
+import functools
 from datetime import datetime
 from flask import jsonify
 from csv import DictReader
@@ -21,7 +22,7 @@ class FileController:
         return jsonify(validMessages)
 
     def checkNumbersFast(self, file):
-        data = self.__numValidation(file)
+        data = functools.reduce(self.callback, self.__numValidation(file), [])
         numbersChecked = [
             f'{e["DDD"]}{e["CELULAR"]}' for e in data]
 
@@ -30,12 +31,12 @@ class FileController:
             r'/blacklist').read().decode('utf8')
 
         blacklist = [e["phone"] for e in json.loads(response)]
-        whiteNumbers = [num for num in numbersChecked if num not in blacklist]
+        validLines = [num for num in numbersChecked if num not in blacklist]
 
         validMessages = [
             f'{e["IDMENSAGEM"]};{e["BROKER"]}'
             for e in data
-            if f'{e["DDD"]}{e["CELULAR"]}' in whiteNumbers
+            if f'{e["DDD"]}{e["CELULAR"]}' in validLines
         ]
 
         return jsonify(validMessages)
@@ -88,6 +89,19 @@ class FileController:
             if not blacklisted:
                 validLines.append(f'{data["IDMENSAGEM"]};{data["BROKER"]}')
         return validLines
+
+    def callback(self, acc, value):
+        acc.append(value)
+        if len(acc) > 1:
+            oldTime = f'{acc[-2]["HORARIO_ENVIO"]}'
+            newTime = f'{value["HORARIO_ENVIO"]}'
+            oldVal = f'{acc[-2]["DDD"]}{acc[-2]["CELULAR"]}'
+            newVal = f'{value["DDD"]}{value["CELULAR"]}'
+            if oldVal == newVal:
+                val = -1 if self.timeDiff(
+                    newTime, oldTime) else -2
+                del acc[val]
+        return acc
 
     @staticmethod
     def timeDiff(hour1, hour2="19:59:59"):
