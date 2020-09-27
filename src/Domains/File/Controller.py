@@ -3,6 +3,7 @@ from datetime import datetime
 from flask import jsonify
 from csv import DictReader
 
+from src.app.Utils import ddd_list
 from .Service import FileService
 from urllib.error import HTTPError
 
@@ -16,9 +17,8 @@ class FileController:
 
     def checkNumbers(self, file):
         numbersChecked = self.__numValidation(file)
-        validLines = self.__requestNumbers(numbersChecked)
-
-        return jsonify(validLines)
+        validMessages = self.__requestNumbers(numbersChecked)
+        return jsonify(validMessages)
 
     def checkNumbersFast(self, file):
         data = self.__numValidation(file)
@@ -32,16 +32,18 @@ class FileController:
         blacklist = [e["phone"] for e in json.loads(response)]
         whiteNumbers = [num for num in numbersChecked if num not in blacklist]
 
-        validNumbers = [
+        validMessages = [
             f'{e["IDMENSAGEM"]};{e["BROKER"]}'
             for e in data
             if f'{e["DDD"]}{e["CELULAR"]}' in whiteNumbers
         ]
 
-        return jsonify(validNumbers)
+        return jsonify(validMessages)
 
     def __numValidation(self, payload):
         validNumbers = []
+        dddArr = [e["DDD"] for e in ddd_list]
+
         for data in DictReader(payload.splitlines(), delimiter=';'):
             if int(data["DDD"]) == 11:
                 continue
@@ -59,6 +61,9 @@ class FileController:
                 continue
 
             if (self.timeDiff(data["HORARIO_ENVIO"])):
+                continue
+
+            if int(data["DDD"]) not in dddArr:
                 continue
 
             data["BROKER"] = self.__getBroker(data["OPERADORA"])
