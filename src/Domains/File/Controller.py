@@ -8,7 +8,7 @@ from urllib.error import HTTPError
 class FileController:
     def __init__(self):
         self._fileService = FileService()
-
+    
     def mainPage(self):
         return jsonify({"status": 200, "message": "Main Success"})
 
@@ -26,7 +26,7 @@ class FileController:
                 continue
 
             print(e["OPERADORA"])
-            e["BROKER"] = self.getBroker(e["OPERADORA"])
+            e["BROKER"] = self.__getBroker(e["OPERADORA"])
 
             try:
                 self._fileService.get(f'/blacklist/{e["DDD"]}{e["CELULAR"]}')
@@ -35,8 +35,7 @@ class FileController:
                     validLines.append(f'{e["IDMENSAGEM"]};{e["BROKER"]}')
         return jsonify(validLines)
 
-    @staticmethod
-    def getBroker(op):
+    def __getBroker(self, op):
         print(op)
         return {
             "VIVO": 1,
