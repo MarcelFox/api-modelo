@@ -1,4 +1,4 @@
-from src.app.Classes.superService import Service
+from src.app.Classes import Service
 
 
 class FileService(Service):

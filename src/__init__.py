@@ -6,5 +6,6 @@ def create_app():
     # app.config.from_object('config')
 
     with app.app_context():
-        from src.app import Router
+        from src.app.Router import file_urls
+        app.register_blueprint(file_urls)
         return app
