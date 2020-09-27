@@ -3,7 +3,7 @@ from flask import Blueprint, jsonify, request
 from flask import current_app as app
 
 
-from src.Domains.File.Controller import FileController
+from src.Domains import FileController
 
 import json
 from csv import DictReader
