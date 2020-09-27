@@ -17,12 +17,13 @@ class FileController:
         return jsonify({"status": 200, "message": "Main Success"})
 
     def checkNumbers(self, file):
-        numbersChecked = self.__numValidation(file)
+        numbersChecked = functools.reduce(
+            self.checkTime, self.__numValidation(file), [])
         validMessages = self.__requestNumbers(numbersChecked)
         return jsonify(validMessages)
 
     def checkNumbersFast(self, file):
-        data = functools.reduce(self.callback, self.__numValidation(file), [])
+        data = functools.reduce(self.checkTime, self.__numValidation(file), [])
         numbersChecked = [
             f'{e["DDD"]}{e["CELULAR"]}' for e in data]
 
@@ -90,7 +91,7 @@ class FileController:
                 validLines.append(f'{data["IDMENSAGEM"]};{data["BROKER"]}')
         return validLines
 
-    def callback(self, acc, value):
+    def checkTime(self, acc, value):
         acc.append(value)
         if len(acc) > 1:
             oldTime = f'{acc[-2]["HORARIO_ENVIO"]}'
