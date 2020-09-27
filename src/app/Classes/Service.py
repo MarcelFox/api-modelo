@@ -1,5 +1,4 @@
 from urllib import request as http
-from urllib.error import HTTPError
 
 
 class Service():
@@ -7,5 +6,5 @@ class Service():
         self._endpoint = r'https://front-test-pg.herokuapp.com'
         # todo: add headers (instance of Request class)
 
-    def get(self, params):
+    def GET(self, params=None):
         return http.urlopen(f'{self._endpoint}{params}')

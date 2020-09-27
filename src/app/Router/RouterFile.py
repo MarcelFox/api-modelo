@@ -5,7 +5,6 @@ from flask import current_app as app
 
 from src.Domains import FileController
 
-import json
 from csv import DictReader
 
 fileController = FileController()
@@ -22,7 +21,13 @@ def main():
     return fileController.mainPage()
 
 
-@file_urls.route('/', methods=['POST'])
+@file_urls.route('/checkCsv', methods=['POST'])
 def checkCsv():
     output = request.files['file'].read().decode('utf8')
     return fileController.checkNumbers(output)
+
+
+@file_urls.route('/checkCsvFast', methods=['POST'])
+def checkCsvFast():
+    output = request.files['file'].read().decode('utf8')
+    return fileController.checkNumbersFast(output)
