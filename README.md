@@ -73,6 +73,8 @@ Recebe um conteúdo do tipo *Multipart Form Data*  contendo um arquivo csv e exe
 <br>
 
 ***Exemplo de Arquivo de Entrada:***
+O arquivo *file-example.csv* contido no repositório, poderá ser utilizado para testes.
+
 ```csv
 IDMENSAGEM;DDD;CELULAR;OPERADORA;HORARIO_ENVIO;MENSAGEM
 bff58d7b-8b4a-456a-b852-5a3e000c0e63;2;996958849;NEXTEL;21:24:03;sapien sapien non mi integer ac neque duis bibendum
@@ -100,6 +102,8 @@ Recebe um conteúdo do tipo *Multipart Form Data*  contendo um arquivo csv e exe
 <br>
 
 ***Exemplo de Arquivo de Entrada:***
+O arquivo *file-example.csv* contido no repositório, poderá ser utilizado para testes.
+
 ```csv
 IDMENSAGEM;DDD;CELULAR;OPERADORA;HORARIO_ENVIO;MENSAGEM
 bff58d7b-8b4a-456a-b852-5a3e000c0e63;2;996958849;NEXTEL;21:24:03;sapien sapien non mi integer ac neque duis bibendum
