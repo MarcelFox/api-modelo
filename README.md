@@ -2,7 +2,7 @@
 Api em Flask *Python 3.8* com intenção de ser escalável, estrutura pensada para seguir um padrão *Domain Drive Design*.
 
 ### Execução Docker:
-O repositório possui um ambiente Docker pronto para levantar o ambiente necessário, localmente. 
+O repositório possui ambiente Docker pronto para levantar a estrutura necessária, localmente. 
 
 Para levantar o ambiente é necessário:
 - Adicionar um arquivo *.env* baseado no arquivo *.env_example*.
@@ -73,6 +73,7 @@ Recebe um conteúdo do tipo *Multipart Form Data*  contendo um arquivo csv e exe
 <br>
 
 ***Exemplo de Arquivo de Entrada:***
+
 O arquivo *file-example.csv* contido no repositório, poderá ser utilizado para testes.
 
 ```csv
@@ -102,6 +103,7 @@ Recebe um conteúdo do tipo *Multipart Form Data*  contendo um arquivo csv e exe
 <br>
 
 ***Exemplo de Arquivo de Entrada:***
+
 O arquivo *file-example.csv* contido no repositório, poderá ser utilizado para testes.
 
 ```csv
