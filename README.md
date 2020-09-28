@@ -60,8 +60,8 @@ Testar se a rota do domínio está respondendo de acordo, executando no *Control
 ***Resposta:***
 ```json
 {
-	"message": "Main Success",
-	"status": 200
+  "message": "Main Success",
+  "status": 200
 }
 ```
 
